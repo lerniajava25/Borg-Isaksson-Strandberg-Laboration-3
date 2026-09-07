@@ -14,26 +14,22 @@ public class ProductController {
 
     private final WarehouseService warehouseService;
 
-    // Konstruktorsinjektion enligt god sed
     public ProductController(WarehouseService warehouseService) {
         this.warehouseService = warehouseService;
     }
 
-    // POST - Skapa produkt
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product created = warehouseService.addProduct(product);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    // GET - Hämta alla produkter
     @SuppressWarnings("unused")
 	@GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(warehouseService.getAllProducts());
     }
 
-    // GET - Hämta produkt via ID
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return warehouseService.getProductById(id)
@@ -41,7 +37,6 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // PUT - Uppdatera produkt
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         return warehouseService.updateProduct(id, product)
@@ -49,7 +44,6 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE - Ta bort produkt
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         if (warehouseService.deleteProduct(id)) {
