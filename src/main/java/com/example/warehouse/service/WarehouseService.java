@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Service
 public class WarehouseService {
 
-    // Trådsäker lagring och ID-generering
     private final ConcurrentHashMap<Long, Product> products = new ConcurrentHashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
 
