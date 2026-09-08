@@ -15,6 +15,56 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class WarehouseServiceTest {
 
     @Test
+    void getProductsByCategoryShouldReturnOnlyProductsInThatCategory() {
+        WarehouseService service = new WarehouseService();
+
+        service.addProduct(new Product(null, "A", "X", new BigDecimal("12000.00"), 5, LocalDate.now()));
+        service.addProduct(new Product(null, "B", "Y", new BigDecimal("300.00"), 15, LocalDate.now()));
+        service.addProduct(new Product(null, "C", "X", new BigDecimal("500.00"), 20, LocalDate.now())); // case-insensitivity
+
+        List<Product> result = service.getProductsByCategory("X");
+
+        assertEquals(2, result.size());
+        boolean allAreElektronik = result.stream().allMatch(p -> p.getCategory().equalsIgnoreCase("X"));
+        assertEquals(true, allAreElektronik);
+    }
+
+    @Test
+    void getProductsByCategoryShouldReturnEmptyListWhenCategoryDoesNotExist() {
+        WarehouseService service = new WarehouseService();
+        service.addProduct(new Product(null, "A", "X", new BigDecimal("12000.00"), 5, LocalDate.now()));
+
+        List<Product> result = service.getProductsByCategory("Y");
+
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void getProductsWithLowStockShouldReturnProductsStrictlyBelowThreshold() {
+        WarehouseService service = new WarehouseService();
+
+        service.addProduct(new Product(null, "Low", "X", new BigDecimal("10.00"), 2, LocalDate.now())); // Should be included (2 < 5)
+        service.addProduct(new Product(null, "Precis på gränsen", "X", new BigDecimal("10.00"), 5, LocalDate.now()));
+        service.addProduct(new Product(null, "Bra saldo", "X", new BigDecimal("10.00"), 10, LocalDate.now()));
+
+        List<Product> result = service.getProductsWithLowStock(5);
+
+        assertEquals(1, result.size());
+        assertEquals("Low", result.get(0).getName());
+    }
+
+    @Test
+    void getProductsWithLowStockShouldReturnEmptyListWhenAllProductsHaveGoodStock() {
+        WarehouseService service = new WarehouseService();
+        service.addProduct(new Product(null, "Laptop", "Elektronik", new BigDecimal("12000.00"), 10, LocalDate.now()));
+
+        List<Product> result = service.getProductsWithLowStock(3);
+
+        assertEquals(0, result.size());
+    }
+
+
+    @Test
     void totalInventoryValueShouldBeCorrect() {
         WarehouseService service = new WarehouseService();
 
