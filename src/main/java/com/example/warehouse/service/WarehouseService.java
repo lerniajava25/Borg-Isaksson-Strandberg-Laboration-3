@@ -9,6 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Map;
+
 @Service
 public class WarehouseService {
 
@@ -48,5 +52,34 @@ public class WarehouseService {
     // DELETE
     public boolean deleteProduct(Long id) {
         return products.remove(id) != null;
+    }
+
+    public BigDecimal getTotalInventoryValue() {
+        return products.values().stream()
+                .map(product -> product.getPrice()
+                        .multiply(BigDecimal.valueOf(product.getStock())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // MEDELPRIS PER KATEGORI
+    public Map<String, BigDecimal> getAveragePriceByCategory() {
+        return products.values().stream()
+                .collect(Collectors.groupingBy(
+                        Product::getCategory,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                categoryProducts -> {
+                                    BigDecimal total = categoryProducts.stream()
+                                            .map(Product::getPrice)
+                                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                                    return total.divide(
+                                            BigDecimal.valueOf(categoryProducts.size()),
+                                            2,
+                                            RoundingMode.HALF_UP
+                                    );
+                                }
+                        )
+                ));
     }
 }
