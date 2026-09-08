@@ -3,6 +3,7 @@ package com.example.warehouse.service;
 import com.example.warehouse.domain.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +30,9 @@ public class WarehouseService {
 
     // READ (Alla)
     public List<Product> getAllProducts() {
-        return products.values().stream().collect(Collectors.toList());
+        return products.values()
+                .stream()
+                .collect(Collectors.toList());
     }
 
     // READ (Enskild)
@@ -55,7 +58,8 @@ public class WarehouseService {
     }
 
     public BigDecimal getTotalInventoryValue() {
-        return products.values().stream()
+        return products.values()
+                .stream()
                 .map(product -> product.getPrice()
                         .multiply(BigDecimal.valueOf(product.getStock())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -63,7 +67,8 @@ public class WarehouseService {
 
     // MEDELPRIS PER KATEGORI
     public Map<String, BigDecimal> getAveragePriceByCategory() {
-        return products.values().stream()
+        return products.values()
+                .stream()
                 .collect(Collectors.groupingBy(
                         Product::getCategory,
                         Collectors.collectingAndThen(
@@ -81,5 +86,15 @@ public class WarehouseService {
                                 }
                         )
                 ));
+    }
+
+    //Sortering av dyraste varor
+    public List<Product> getTopNMostExpensiveProducts(int n) {
+        return products.values()
+                .stream()
+                .sorted(Comparator.comparing(Product::getPrice)
+                        .reversed())
+                .limit(n)
+                .collect(Collectors.toList());
     }
 }
