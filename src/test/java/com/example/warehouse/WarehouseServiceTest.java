@@ -25,8 +25,8 @@ class WarehouseServiceTest {
         List<Product> result = service.getProductsByCategory("X");
 
         assertEquals(2, result.size());
-        boolean allAreElektronik = result.stream().allMatch(p -> p.getCategory().equalsIgnoreCase("X"));
-        assertEquals(true, allAreElektronik);
+        boolean allAreX = result.stream().allMatch(p -> p.getCategory().equalsIgnoreCase("X"));
+        assertEquals(true, allAreX);
     }
 
     @Test
