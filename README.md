@@ -12,3 +12,34 @@ En annan grundläggande skillnad är språken. Java är statiskt typat, vilket i
 
 Tillsammans med den statiska typningen och Spring Boots tydliga struktur upplever jag att detta ger goda förutsättningar för att bygga robusta backend-applikationer, även om det samtidigt innebär att utvecklaren behöver lära sig Spring Boots sätt att strukturera och konfigurera en applikation.
 
+## Isaksson reflektion
+
+
+Kallas “opinionated” – utgår från standardinställningar. Ramverket bestämmer mycket om hur dependency injection (DI) görs, hur säkerhet sätts upp. Utvecklare kan kringgå repetitivt och komplext konfigurationsarbete. T.ex. @Service-annotation säger att klassen ska hanteras, instansieraras och tillgängliggöras för andra delar av systemet (DI).
+
+Kräver ingen matchning av bibliotek. Med Spring Boot inkluderar man bara en så kallad Starter (t.ex. spring-boot-starter-web eller spring-boot-starter-test). Spring Boot paketerar då en kombination av alla bibliotek som behövs i exakt rätt versioner.
+
+Spring Boot har en inbyggd server – inget behov av att konfigurera och installera en extern applikationsserver.
+
+
+Java/Spring Boot har statiskt typat; problem upptäcks vid kompilering. Node.js är dynamiskt typat (kräver mer enhetstester). 
+
+Skillnader:
+
+Vid uppstart: Spring Boot mer resurskrävande att starta applikationen. Node.js är väldigt snabb jämförelsevis och kräver lite minne i vila.
+
+Node.js kan sägas vara mer optimerat för I/O-intensiva applikationer (chatta, strömma etc.), medans Java/Spring Boot är passar mer för CPU-intensiva uppgifter. 
+
+Java kan fördela arbetet över datorns alla processorkärnor via multithreading. Det kan vara användbart t.ex. vid tunga matematiska beräkningar och bildbehandling. Node.js körs på en enda thread, vilket kan märkas om blockering sker till följd av tunga beräkningar.
+
+Node.js kräver att utvecklaren själv väljer bibliotek för databaser, validering och säkerhet, till skillnad från Spring Boot (se ovan).
+
+Likheter:
+
+Båda är populära val för att bygga backend-system och REST-API:er.
+
+Att lägga till bibliotek i pom.xml görs via maven eller gradle och i Node.js via  npm och yarn i package.json. Båda har stora ekosystem.
+
+Båda miljöerna tillhandahåller databasanslutningar, molntjänster, containerisering, mikrotjänst-arkitektur.
+
+Båda miljöerna har stora communityn.
