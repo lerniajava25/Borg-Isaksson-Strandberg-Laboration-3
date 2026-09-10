@@ -65,6 +65,18 @@ public class WarehouseService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public List<Product> getProductsByCategory(String category) {
+        return products.values().stream()
+            .filter(p -> p.getCategory() != null && p.getCategory().equalsIgnoreCase(category))
+            .collect(Collectors.toList());
+    }
+
+    public List<Product> getProductsWithLowStock(int limit) {
+        return products.values().stream()
+            .filter(p -> p.getStock() < limit)
+            .collect(Collectors.toList());
+    }
+
     // MEDELPRIS PER KATEGORI
     public Map<String, BigDecimal> getAveragePriceByCategory() {
         return products.values()
