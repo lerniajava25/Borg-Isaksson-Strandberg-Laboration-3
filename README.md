@@ -43,3 +43,20 @@ Att lägga till bibliotek i pom.xml görs via maven eller gradle och i Node.js v
 Båda miljöerna tillhandahåller databasanslutningar, molntjänster, containerisering, mikrotjänst-arkitektur.
 
 Båda miljöerna har stora communityn.
+
+## Strandberg reflektion
+
+Jag upplever att Spring Boot ger en tydligare struktur än det jag tidigare arbetat med i Node.js och Express. Jag har programmerat i JavaScript tidigare, 
+men även där har jag ibland upplevt att projektstrukturen kan bli ganska rörig när mycket behöver sättas upp och organiseras själv.
+
+Spring Boot känns mer styrt i hur applikationen ska byggas upp, till exempel genom uppdelningen mellan Controller och Service och genom annotationer 
+som @Service och @RestController. För mig som fortfarande är ny i Java har det varit en ganska stor omställning, men samtidigt har den tydliga strukturen 
+gjort det lättare att förstå vilket ansvar olika delar av programmet har.
+
+En annan skillnad jag märkt är att Java är mer strikt med typer än JavaScript. Det kan kännas mer omständligt i början, men jag ser också fördelen med att 
+många fel upptäcks redan när programmet kompileras.
+
+I den här laborationen har jag framför allt fått bättre förståelse för hur Streams kan användas för att bearbeta samlingar, till exempel för beräkningar, 
+filtrering och sortering. Enhetstesterna har också gjort det tydligare hur man kan kontrollera att logiken fungerar som tänkt.
+
+
