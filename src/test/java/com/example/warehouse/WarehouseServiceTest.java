@@ -20,7 +20,7 @@ class WarehouseServiceTest {
 
         service.addProduct(new Product(null, "A", "X", new BigDecimal("12000.00"), 5, LocalDate.now()));
         service.addProduct(new Product(null, "B", "Y", new BigDecimal("300.00"), 15, LocalDate.now()));
-        service.addProduct(new Product(null, "C", "X", new BigDecimal("500.00"), 20, LocalDate.now())); // case-insensitivity
+        service.addProduct(new Product(null, "C", "x", new BigDecimal("500.00"), 20, LocalDate.now())); // case-insensitivity
 
         List<Product> result = service.getProductsByCategory("X");
 
